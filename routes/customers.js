@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-
+const errorHandler = require('./errorHandler');
 
 const customers = require('../models/customersData');
+// const e = require('express');
 
 //get all customers
 
@@ -21,7 +22,7 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler);
 
 
 // post a customer
@@ -44,7 +45,7 @@ router.post('/', (req, res) => {
     res.json( customers );
 
     res.render('ShowCustomers', { customers: customers })
-})
+}, errorHandler);
 
 // update a customer
 router.put('/:id', (req, res) => {
@@ -66,7 +67,7 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler);
 
 // delete a customer
 router.delete('/:id', (req, res) => {
@@ -78,7 +79,7 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler);
 
 
 //-----------------------export--

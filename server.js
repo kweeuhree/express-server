@@ -21,11 +21,14 @@ app.use(express.urlencoded({ extended: true }));
 
 const customersRouter = require('./routes/customers');
 const booksRouter = require('./routes/books');
+const comicBooksRouter = require('./routes/comicBooks');
+const errorHandler = require('./routes/errorHandler');
 
 app.use('/api/customers', customersRouter);
 app.use('/api/books', booksRouter);
+app.use('/api/comicBooks', comicBooksRouter);
 
-
+app.use(errorHandler);
 //-----------------------------------listen--
 app.listen(port, (req, res) => {
     console.log(`Listening on port ${port}`);

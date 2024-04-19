@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const errorHandler = require('./errorHandler');
 
 const books = require('../models/booksData');
 const customers = require('../models/customersData');
@@ -21,7 +21,7 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler);
 
 // post a book
 router.post('/', (req, res) => {
@@ -46,7 +46,7 @@ router.post('/', (req, res) => {
     res.json(books);
 
     res.render('ShowBooks', { customers: customers });
-})
+}, errorHandler);
 
 
 // update a book
@@ -71,7 +71,7 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler)
 
 // delete a book
 
@@ -84,7 +84,7 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-})
+}, errorHandler)
 
 
 
