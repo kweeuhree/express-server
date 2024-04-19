@@ -1,0 +1,40 @@
+.main-div {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    background-color: rgba(189, 189, 243, 0.096);
+    padding: 1em;
+    margin: 1em;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.single-container {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+    background-color: rgba(189, 189, 243, 0.096);
+    padding: 1em;
+    margin: 1em;
+}
+
+.single-container:hover {
+    background-color: rgba(189, 189, 243, 0.267);
+    border: 1px solid rgb(117, 117, 117);
+}
+
+.details {
+    letter-spacing: 0.2vw;
+}
+
+.picture {
+    width: 20vw;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+}
