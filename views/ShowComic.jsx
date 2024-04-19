@@ -8,11 +8,28 @@ export default class ShowComic extends Component {
         console.log(comic)
 
         return (
-            <div >
-                        <h1>Comic title: {comic.title}</h1>
-                        <h1>Comic author:{comic.author}</h1>
-                        <h1>datePublished:{comic.datePublished}</h1>
-            </div>
+            <html>
+                <head>
+                <link rel="stylesheet" href="/Books.css" />
+                </head>
+
+                <body>
+                  <div className='single-container'>
+
+                    <div>
+                        <h1>{comic.title}</h1>
+                        <h3>Comic author: {comic.author}</h3>
+                        <h3>datePublished: {comic.datePublished}</h3>
+                    </div>
+
+                    <div className="picture">
+                        <img src={comic.picture} alt={comic.title} />
+                     </div>
+
+                    </div>
+                </body>
+
+            </html>
         );
     }
 }

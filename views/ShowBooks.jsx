@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+
 export default class ShowBooks extends Component {
     render() {
         // Log props to inspect what's being passed
@@ -9,12 +10,27 @@ export default class ShowBooks extends Component {
         return (
             <>
                 {books.map((book, index) => (
-                    <div key={index}>
-                        <h1>Book title: {book.name}</h1>
-                        <h1>Book author: {book.author}</h1>
-                        <h1>Published: {book.datePublished}</h1>
-                        <h1>Borrow status: {book.isBorrowed ? 'not available': 'available'}</h1>
-                    </div>
+         <html>
+            <head>
+                <link rel="stylesheet" href="/Books.css" />
+            </head>
+         <body>
+         <div key={index}>
+            <div className='single-container'>
+                <div>
+                    <h1>{book.name}</h1>
+                    <h3>Book author: {book.author}</h3>
+                    <h3>Published: {book.datePublished}</h3>
+                    <h3>Borrow status: {book.isBorrowed ? 'not available': 'available'}</h3>
+                </div>
+
+                <div className="picture">
+                    <img src={book.picture} alt={book.name} />
+                </div>
+            </div>
+            </div>
+            </body>
+            </html>
                 ))}
             </>
         );

@@ -10,12 +10,41 @@ export default class ShowComics extends Component {
 
         return (
             <>
-                {comics.map((comic, index) => (
-                    <div key={index}>
-                        <h1>Comic title: {comic.title}</h1>
-                        <h1>Comic author:{comic.author}</h1>
-                        <h1>datePublished:{comic.datePublished}</h1>
+                 {comics.map((comic, index) => (
+        <html>
+             <head>
+                      <link rel="stylesheet" href="/Books.css" />
+            </head>
+
+             <body>
+        
+               <div key={index}>
+                    <div>
+
+                        
+                    <div className='single-container'>
+                    <div>
+                        <h1>{comic.title}</h1>
+                        <h3>Comic author: {comic.author}</h3>
+                        <h3>datePublished: {comic.datePublished}</h3>
+                     </div>
+
+                     <div className='picture'>
+                        <img src={comic.picture} alt={comic.title} />
+                     </div>
+
+                       <div className='details'>Coming soon!</div>
                     </div>
+
+                   
+
+                    </div>
+
+                    
+                    
+            </div>
+            </body>
+            </html>
                 ))}
             </>
         );

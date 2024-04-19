@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const errorHandler = require('./errorHandler');
+const logger = require('./logger')
 
 
 const comicBooks = require('../models/comicBooksData');
 
 //get all comic books
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     console.log(comicBooks)
-    res.render("ShowComics", { comicBooks: comicBooks }); // this is props
-}, errorHandler);
+    res.render("ShowComics", { comicBooks: comicBooks });
+    next(); // this is props
+});
 
 //get a single comic book
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
     const found = comicBooks.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -20,10 +22,11 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Comic Book not found with id of ${req.params.id}` });
     }
-}, errorHandler);
+    next();
+});
 
 //post a comic book
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
     const newId = comicBooks.length + 1;
     const comicBook = {
         id: newId,
@@ -42,10 +45,11 @@ router.post('/', (req, res) => {
 
     res.render("ShowComic", { comicBook: comicBook });
 
-}, errorHandler)
+    next();
+})
 
 //update a comic book
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
     const found = comicBooks.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -64,10 +68,12 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Comic Book not found with id of ${req.params.id}` });
     }
-}, errorHandler)
+
+    next();
+})
 
 //delete a comic book
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
     const found = comicBooks.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -75,7 +81,10 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Comic Book not found with id of ${req.params.id}` });
     }
-}, errorHandler)
 
+    next();
+})
 
+router.use(logger);
+router.use(errorHandler);
 module.exports = router;

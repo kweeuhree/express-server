@@ -9,10 +9,19 @@ export default class ShowCustomers extends Component {
         return (
             <>
                 {customers.map((customer, index) => (
-                    <div key={index}>
-                        <h1>Customer name: {customer.name}</h1>
-                        <h1>Customer surname:{customer.surname}</h1>
-                    </div>
+       <html>
+         <head>
+            <link rel="stylesheet" href="/Books.css" />
+          </head>
+           <body>
+              <div key={index}>
+                <div className='main-div'>
+                  <h1>Customer name: {customer.name}</h1>
+                    <h1>Customer surname:{customer.surname}</h1>
+                  </div>
+               </div>
+            </body>
+        </html>
                 ))}
             </>
         );

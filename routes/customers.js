@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const errorHandler = require('./errorHandler');
-
+const logger = require('./logger');
 const customers = require('../models/customersData');
 // const e = require('express');
 
 //get all customers
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     res.render('ShowCustomers', { customers: customers });
+    next();
 });
 
 //get a single customer 
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res,next) => {
     const found = customers.find(customer => customer.id === parseInt(req.params.id));
     
     if(found) {
@@ -22,11 +23,13 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-}, errorHandler);
+
+    next();
+});
 
 
 // post a customer
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
 
     const newId = customers.length + 1;
 
@@ -45,10 +48,12 @@ router.post('/', (req, res) => {
     res.json( customers );
 
     res.render('ShowCustomers', { customers: customers })
-}, errorHandler);
+
+    next();
+});
 
 // update a customer
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
     const found = customers.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -67,10 +72,12 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-}, errorHandler);
+
+    next();
+});
 
 // delete a customer
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
     const found = customers.find(customer => customer.id === parseInt(req.params.id));
 
     if(found) {
@@ -79,8 +86,11 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Customer not found with id of ${req.params.id}` });
     }
-}, errorHandler);
 
+    next();
+});
 
+router.use(logger);
+router.use(errorHandler);
 //-----------------------export--
 module.exports = router;

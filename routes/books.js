@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const errorHandler = require('./errorHandler');
-
+const logger = require('./logger');
 const books = require('../models/booksData');
-const customers = require('../models/customersData');
 
 //get all books
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
     res.render('ShowBooks', { books: books });
+    next();
 })
 
 //get a single book
 
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
     const found = books.find(book => book.id === parseInt(req.params.id));
 
     if(found) {
@@ -21,10 +21,12 @@ router.get('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-}, errorHandler);
+
+    next();
+});
 
 // post a book
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
     const newId = books.length + 1;
 
     const newBook = {
@@ -46,11 +48,13 @@ router.post('/', (req, res) => {
     res.json(books);
 
     res.render('ShowBooks', { customers: customers });
-}, errorHandler);
+
+    next();
+});
 
 
 // update a book
-router.put('/:id', (req, res) => {
+router.put('/:id', (req, res, next) => {
     const found = books.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -71,11 +75,13 @@ router.put('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-}, errorHandler)
+
+    next();
+})
 
 // delete a book
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', (req, res, next) => {
     const found = books.find(item => item.id === parseInt(req.params.id));
 
     if(found) {
@@ -84,9 +90,11 @@ router.delete('/:id', (req, res) => {
     } else {
         res.status(400).json({ msg: `Book not found with id of ${req.params.id}` });
     }
-}, errorHandler)
 
+    next();
+})
 
-
+router.use(logger);
+router.use(errorHandler);
 //-----------------------export--
 module.exports = router
